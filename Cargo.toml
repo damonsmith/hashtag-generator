@@ -6,3 +6,4 @@ authors = ["Damon Smith <damon.default@gmail.com>"]
 [dependencies]
 
 indextree = "4.0.0"
+regex = "1"
