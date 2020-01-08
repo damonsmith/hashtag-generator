@@ -1,6 +1,6 @@
 [package]
-name = "guessing_game"
-version = "0.1.0"
+name = "ambiguous_hashtag_generator"
+version = "1.0.0"
 authors = ["Damon Smith <damon.default@gmail.com>"]
 
 [dependencies]
