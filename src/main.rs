@@ -1,4 +1,3 @@
-extern crate regex;
 mod dictionary;
 use std::env;
 use std::io;
@@ -20,12 +19,12 @@ fn main() {
 	if switch_arg == "-f" && dict_file_arg.len() > 0 {
 		dict_file = dict_file_arg;
 	} else {
-		dict_file = "/usr/share/dict/cracklib-small";
+		dict_file = "engmix.txt";
 	}
 
 	let dict = dictionary::Dictionary::new(dict_file);
 	println!("ready, word count: {}, type exit to exit", dict.word_count);
-	println!("contains ar: {}", dict.contains("ar"));
+	
 	let stdin = io::stdin();
 	for line in stdin.lock().lines() {
 		let hash_line = line.unwrap();

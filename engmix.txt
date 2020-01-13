@@ -1251,7 +1251,6 @@ advocators
 advowson
 adze
 adzes
-ae
 aegean
 aegis
 aeolian
@@ -1637,7 +1636,6 @@ ahead
 ahem
 ahmadabad
 ahoy
-ai
 aid
 aida
 aide
@@ -3267,7 +3265,6 @@ anytime
 anyway
 anywhere
 anywise
-ao
 aorta
 aortal
 aortas
@@ -11697,7 +11694,6 @@ ceteris
 ceylon
 ceylonese
 cezanne
-ch
 chablis
 chace
 chacer
@@ -17519,7 +17515,6 @@ crystallographic
 crystallography
 crystalloid
 crystals
-cs
 ctenophore
 ctenophores
 cub
@@ -22302,8 +22297,6 @@ dizzying
 dizzyingly
 djakarta
 djibouti
-dl
-dmus
 dna
 do
 doable
@@ -23564,7 +23557,6 @@ dysphasia
 dysprosium
 dystrophic
 dystrophy
-e
 each
 eadem
 eager
@@ -24391,7 +24383,6 @@ ely
 elysee
 elysian
 elysium
-em
 emaciate
 emaciated
 emaciates
@@ -24723,7 +24714,6 @@ emulsifying
 emulsion
 emulsions
 emus
-en
 enable
 enabled
 enables
@@ -25335,8 +25325,8 @@ entomologists
 entomology
 entourage
 entourages
-entr'acte
-entr'actes
+entracte
+entractes
 entrails
 entrain
 entrained
@@ -25453,7 +25443,6 @@ enwraps
 enzymatic
 enzyme
 enzymes
-eo
 eocene
 eolith
 eolithic
@@ -25671,7 +25660,6 @@ equivocation
 equivocations
 equivocator
 equivocators
-er
 era
 eradicate
 eradicated
@@ -25957,7 +25945,6 @@ estrogen
 estrous
 estuaries
 estuary
-et
 eta
 etagere
 etageres
@@ -27161,8 +27148,6 @@ eyrie
 eyries
 ezekiel
 ezra
-f
-fa
 faber
 faberge
 fabian
@@ -27729,7 +27714,6 @@ faze
 fazed
 fazes
 fazing
-fe
 feal
 fealties
 fealty
@@ -30438,8 +30422,6 @@ fry
 fryer
 fryers
 frying
-fs
-ft
 fu
 fuchs
 fuchsia
@@ -31604,7 +31586,6 @@ ghoulie
 ghoulish
 ghoulishly
 ghouls
-gi
 giant
 giantess
 giantesses
@@ -33378,7 +33359,6 @@ gyrostabilisers
 gyrostabilizer
 gyrostabilizers
 gyves
-h
 ha
 haas
 habakkuk
@@ -40481,8 +40461,6 @@ joyrides
 joys
 joystick
 joysticks
-jp
-jr
 juan
 juas
 jubilance
@@ -40711,8 +40689,6 @@ juxtaposes
 juxtaposing
 juxtaposition
 juxtapositions
-k
-ka
 kabob
 kabobs
 kabuki
@@ -41349,7 +41325,6 @@ koshered
 koshers
 kowtow
 kph
-kr
 kraal
 kraals
 kraft
@@ -41372,7 +41347,6 @@ kruger
 krugerrand
 krugerrands
 krypton
-ku
 kuala
 kudos
 kudzu
@@ -42037,7 +42011,6 @@ lazing
 lazuli
 lazy
 lazybones
-lc
 le
 lea
 leach
@@ -43915,7 +43888,6 @@ lysergic
 lysine
 lysol
 lytham
-m
 ma
 maastricht
 mabel
@@ -47153,13 +47125,9 @@ mixture
 mixtures
 mizzen
 mizzens
-mk
-ml
-mm
 mnemonic
 mnemonically
 mnemonics
-mo
 moan
 moaned
 moaner
@@ -48084,7 +48052,6 @@ mozzarella
 mr
 mrs
 ms
-mu
 much
 muchness
 mucilage
@@ -48484,8 +48451,6 @@ muzzled
 muzzles
 muzzling
 muzzy
-mx
-my
 myalgia
 myasthenia
 mycelia
@@ -49834,7 +49799,6 @@ noxiousness
 nozzle
 nozzles
 nspcc
-nt
 nuance
 nuances
 nub
@@ -50019,7 +49983,6 @@ nuzzle
 nuzzled
 nuzzles
 nuzzling
-nw
 nyasaland
 nylon
 nylons
@@ -50396,7 +50359,6 @@ ocular
 oculars
 oculist
 oculists
-od
 odalisque
 odalisques
 odd
@@ -52249,7 +52211,6 @@ oysters
 oz
 ozone
 ozonosphere
-p
 pa
 pablo
 pabulum
@@ -53442,9 +53403,7 @@ payroll
 payrolls
 pays
 paz
-pc
 pdsa
-pe
 pea
 peabody
 peace
@@ -59236,7 +59195,6 @@ quotidian
 quotient
 quotients
 quoting
-r
 ra
 rabat
 rabbet
@@ -59895,7 +59853,6 @@ razzed
 razzes
 razzing
 razzmatazz
-rd
 re
 rea
 reabsorb
@@ -64849,7 +64806,6 @@ sayers
 saying
 sayings
 says
-sc
 scab
 scabbard
 scabbards
@@ -72774,7 +72730,6 @@ suzette
 suzettes
 suzuki
 svelte
-sw
 swab
 swabbed
 swabbing
@@ -73272,7 +73227,6 @@ systole
 systoles
 systolic
 szechwan
-t
 ta
 tab
 tabard
@@ -73853,9 +73807,7 @@ taxying
 tay
 taylor
 tayside
-tb
 tchaikovsky
-te
 tea
 teacake
 teacakes
@@ -74417,7 +74369,6 @@ tertiary
 tertii
 tertium
 tertius
-tes
 tess
 tessellate
 tessellated
@@ -74519,7 +74470,6 @@ texture
 textured
 textures
 texturing
-th
 thackeray
 thai
 thailand
@@ -75025,7 +74975,6 @@ thyroidal
 thyroids
 thyroxin
 thyself
-ti
 tiara
 tiaras
 tiber
@@ -77383,7 +77332,6 @@ twofold
 twos
 twosome
 twosomes
-tx
 tyburn
 tycoon
 tycoons
@@ -77499,7 +77447,6 @@ ugliest
 ugliness
 ugly
 uht
-uig
 uist
 uk
 ukaea
@@ -80070,7 +80017,6 @@ usherettes
 ushering
 ushers
 using
-usk
 ussr
 usual
 usually
@@ -80090,7 +80036,6 @@ usurpers
 usurping
 usurps
 usury
-ut
 utah
 utensil
 utensils
@@ -80149,7 +80094,6 @@ uxoriously
 uzbek
 uzbekistan
 uzbeks
-v
 vac
 vacancies
 vacancy
@@ -80491,7 +80435,6 @@ vavasor
 vavasors
 vavasour
 vavasours
-vc
 veal
 vector
 vectored
@@ -81034,7 +80977,6 @@ villas
 villi
 vilnius
 vim
-vin
 vinaigrette
 vinaigrettes
 vincent
@@ -81096,7 +81038,6 @@ viper
 viperous
 viperously
 vipers
-vir
 virago
 viragoes
 viragos
@@ -81521,7 +81462,6 @@ vultures
 vulva
 vulvas
 vying
-w
 wabble
 wackier
 wackiest
@@ -82032,9 +81972,7 @@ waysides
 wayward
 waywardens
 waywardly
-wc
 we
-wea
 weak
 weaken
 weakened
@@ -83636,7 +83574,6 @@ yetis
 yetminster
 yew
 yews
-yha
 yick
 yid
 yiddish
@@ -83737,7 +83674,6 @@ yuppies
 yvette
 yvonne
 ywca
-z
 zabaglione
 zabagliones
 zachary
@@ -83778,7 +83714,6 @@ zebus
 zechariah
 zed
 zeds
-zee
 zeebrugge
 zees
 zeffirelli

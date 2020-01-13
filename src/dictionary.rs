@@ -1,8 +1,13 @@
-use regex::Regex;
 use std::cmp;
 use std::collections::{HashMap, HashSet};
 use std::fs::File;
 use std::io::{prelude::*, BufReader};
+
+pub struct Node {
+	pub children: HashMap<char, usize>,
+	pub is_word_ending: bool,
+	pub data: char,
+}
 
 pub struct Dictionary {
 	nodes: Vec<Node>,
@@ -11,8 +16,6 @@ pub struct Dictionary {
 
 impl Dictionary {
 	pub fn new(dict_file: &str) -> Dictionary {
-		let re = Regex::new(r"[\d\&]").unwrap();
-
 		
 		let mut instance = Self {
 			nodes: Vec::new(),
@@ -31,15 +34,7 @@ impl Dictionary {
 		let reader = BufReader::new(file);
 		for line in reader.lines() {
 			let word = line.unwrap();
-			// ignore words that contain numbers or ampersands
-			// but allow apostrophes
-			if re.is_match(word.as_str()) {
-				continue;
-			}
 
-			if word.len() < 3 {
-				continue;
-			}
 			instance.add_word_to_dict(&word);
 			instance.word_count += 1;
 		}
@@ -67,7 +62,7 @@ impl Dictionary {
 				}
 			}
 		}
-		self.get_mut(current_node_id).word_ending = true;
+		self.get_mut(current_node_id).is_word_ending = true;
 
 	}
 
@@ -120,7 +115,7 @@ impl Dictionary {
 			// if it is not a word ending continue
 			words.push(c);
 
-			if current_node.word_ending {
+			if current_node.is_word_ending {
 				// if we are at a word ending but the next char is
 				// one of the child nodes then we need to create a new
 				// call starting from the new word
@@ -131,13 +126,15 @@ impl Dictionary {
 				}
 				// if there are no longer words then reset the current node
 				// to the top of the tree again and add a space
-				else {
+				else if i < sentence.len() - 1 {
 					words.push(' ');
 					current_node_id = 0;
 				}
 			}
 		}
-		sentences.push(words);
+		if self.get(current_node_id).is_word_ending {
+			sentences.push(words);
+		}
 	}
 
 	pub fn get_all_word_endings(
@@ -148,7 +145,7 @@ impl Dictionary {
 	) {
 		let current_node = self.get(current_node_id);
 		let word_next = format!("{}{}", word, current_node.data);
-		if current_node.word_ending {
+		if current_node.is_word_ending {
 			words.push(word_next.clone());
 		}
 		for node_id in current_node.children.values() {
@@ -156,6 +153,7 @@ impl Dictionary {
 		}
 	}
 
+	/*
 	pub fn get_sub_words(&self, word: &str) {
 		let mut word_set: HashSet<&str> = HashSet::new();
 		let mut current_node_id = 0;
@@ -167,11 +165,12 @@ impl Dictionary {
 				Some(&id) => id,
 				None => return,
 			};
-			if self.get(current_node_id).word_ending {
+			if self.get(current_node_id).is_word_ending {
 				word_set.insert(word.get(0..pos).unwrap());
 			}
 		});
 	}
+	*/
 
 	pub fn contains(&self, word: &str) -> bool {
 		let mut current_node_id = 0;
@@ -184,8 +183,7 @@ impl Dictionary {
 				None => return false,
 			};
 		}
-
-		true
+		self.get(current_node_id).is_word_ending
 	}
 
 	pub fn get_overlapping_words(&self, sentence: &str, max_overlap: usize) -> Vec<String> {
@@ -213,7 +211,7 @@ impl Dictionary {
 		// Push the node into the arena
 		self.nodes.push(Node {
 			children: HashMap::new(),
-			word_ending: false,
+			is_word_ending: false,
 			data: data,
 		});
 
@@ -229,10 +227,4 @@ impl Dictionary {
 		self.nodes.get(id).unwrap()
 	}
 
-}
-
-pub struct Node {
-	pub children: HashMap<char, usize>,
-	pub word_ending: bool,
-	pub data: char,
 }
