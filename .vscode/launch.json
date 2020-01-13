@@ -7,15 +7,15 @@
 		{
 			"type": "lldb",
 			"request": "launch",
-			"name": "Debug executable 'guessing_game'",
+			"name": "Debug executable 'ambiguous_hashtag_generator'",
 			"cargo": {
 				"args": [
 					"build",
-					"--bin=guessing_game",
-					"--package=guessing_game"
+					"--bin=ambiguous_hashtag_generator",
+					"--package=ambiguous_hashtag_generator"
 				],
 				"filter": {
-					"name": "guessing_game",
+					"name": "ambiguous_hashtag_generator",
 					"kind": "bin"
 				}
 			},
@@ -25,16 +25,16 @@
 		{
 			"type": "lldb",
 			"request": "launch",
-			"name": "Debug unit tests in executable 'guessing_game'",
+			"name": "Debug unit tests in executable 'ambiguous_hashtag_generator'",
 			"cargo": {
 				"args": [
 					"test",
 					"--no-run",
-					"--bin=guessing_game",
-					"--package=guessing_game"
+					"--bin=ambiguous_hashtag_generator",
+					"--package=ambiguous_hashtag_generator"
 				],
 				"filter": {
-					"name": "guessing_game",
+					"name": "ambiguous_hashtag_generator",
 					"kind": "bin"
 				}
 			},

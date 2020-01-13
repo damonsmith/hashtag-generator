@@ -5,8 +5,7 @@ use std::fs::File;
 use std::io::{prelude::*, BufReader};
 
 pub struct Dictionary {
-	arena: Arena,
-	start_node_id: usize,
+	nodes: Vec<Node>,
 	pub word_count: usize,
 }
 
@@ -14,8 +13,14 @@ impl Dictionary {
 	pub fn new(dict_file: &str) -> Dictionary {
 		let re = Regex::new(r"[\d\&]").unwrap();
 
-		let mut arena = Arena::new();
-		let start_node_id = arena.new_node(' ');
+		
+		let mut instance = Self {
+			nodes: Vec::new(),
+			word_count: 0,
+		};
+
+		instance.new_node(' ');
+
 		let file = match File::open(dict_file) {
 			Ok(f) => f,
 			Err(e) => panic!(
@@ -24,7 +29,6 @@ impl Dictionary {
 			),
 		};
 		let reader = BufReader::new(file);
-		let mut word_count = 0;
 		for line in reader.lines() {
 			let word = line.unwrap();
 			// ignore words that contain numbers or ampersands
@@ -33,47 +37,47 @@ impl Dictionary {
 				continue;
 			}
 
-			if word.len() < 2 {
+			if word.len() < 3 {
 				continue;
 			}
-
-			let mut current_node_id = start_node_id;
-			for c in word.chars() {
-				if c < 'A' || c > 'z' {
-					continue;
-				};
-				if !arena.get(current_node_id).children.contains_key(&c) {
-					let new_node_id = arena.new_node(c);
-					arena
-						.get_mut(current_node_id)
-						.children
-						.insert(c, new_node_id);
-					current_node_id = new_node_id;
-				} else {
-					current_node_id = match arena.get(current_node_id).children.get(&c) {
-						Some(&id) => id,
-						None => panic!("can't get node"),
-					}
-				}
-			}
-			arena.get_mut(current_node_id).word_ending = true;
-			word_count += 1;
+			instance.add_word_to_dict(&word);
+			instance.word_count += 1;
 		}
 
-		Self {
-			arena: arena,
-			start_node_id: start_node_id,
-			word_count: word_count,
-		}
+		instance
 	}
 
-	pub fn get_words_starting_with(&self, word: &str) -> Vec<String> {
-		let mut current_node_id = self.start_node_id;
+	pub fn add_word_to_dict(&mut self, word: &String) {
+		let mut current_node_id = 0;
 		for c in word.chars() {
 			if c < 'A' || c > 'z' {
 				continue;
 			};
-			current_node_id = match self.arena.get(current_node_id).children.get(&c) {
+			if !self.get(current_node_id).children.contains_key(&c) {
+				let new_node_id = self.new_node(c);
+				self
+					.get_mut(current_node_id)
+					.children
+					.insert(c, new_node_id);
+				current_node_id = new_node_id;
+			} else {
+				current_node_id = match self.get(current_node_id).children.get(&c) {
+					Some(&id) => id,
+					None => panic!("can't get node"),
+				}
+			}
+		}
+		self.get_mut(current_node_id).word_ending = true;
+
+	}
+
+	pub fn get_words_starting_with(&self, word: &str) -> Vec<String> {
+		let mut current_node_id = 0;
+		for c in word.chars() {
+			if c < 'A' || c > 'z' {
+				continue;
+			};
+			current_node_id = match self.get(current_node_id).children.get(&c) {
 				Some(&id) => id,
 				None => return Vec::new(),
 			};
@@ -92,7 +96,7 @@ impl Dictionary {
 		parsed_words: String,
 		sentences: &mut Vec<String>,
 	) {
-		let mut current_node_id = self.start_node_id;
+		let mut current_node_id = 0;
 		let mut words = parsed_words.clone();
 		//let prefix: String = sentence.chars().take(pos).collect();
 		//words.push_str(prefix.as_str());
@@ -107,11 +111,11 @@ impl Dictionary {
 				continue;
 			};
 			// move along to the node for the current char
-			current_node_id = match self.arena.get(current_node_id).children.get(&c) {
+			current_node_id = match self.get(current_node_id).children.get(&c) {
 				Some(n) => *n,
 				None => break,
 			};
-			let current_node = self.arena.get(current_node_id);
+			let current_node = self.get(current_node_id);
 
 			// if it is not a word ending continue
 			words.push(c);
@@ -129,7 +133,7 @@ impl Dictionary {
 				// to the top of the tree again and add a space
 				else {
 					words.push(' ');
-					current_node_id = self.start_node_id;
+					current_node_id = 0;
 				}
 			}
 		}
@@ -142,7 +146,7 @@ impl Dictionary {
 		current_node_id: usize,
 		words: &mut Vec<String>,
 	) {
-		let current_node = self.arena.get(current_node_id);
+		let current_node = self.get(current_node_id);
 		let word_next = format!("{}{}", word, current_node.data);
 		if current_node.word_ending {
 			words.push(word_next.clone());
@@ -154,28 +158,28 @@ impl Dictionary {
 
 	pub fn get_sub_words(&self, word: &str) {
 		let mut word_set: HashSet<&str> = HashSet::new();
-		let mut current_node_id = self.start_node_id;
+		let mut current_node_id = 0;
 		word.chars().enumerate().for_each(|(pos, c)| {
 			if c < 'A' || c > 'z' {
 				return;
 			};
-			current_node_id = match self.arena.get(current_node_id).children.get(&c) {
+			current_node_id = match self.get(current_node_id).children.get(&c) {
 				Some(&id) => id,
 				None => return,
 			};
-			if self.arena.get(current_node_id).word_ending {
+			if self.get(current_node_id).word_ending {
 				word_set.insert(word.get(0..pos).unwrap());
 			}
 		});
 	}
 
 	pub fn contains(&self, word: &str) -> bool {
-		let mut current_node_id = self.start_node_id;
+		let mut current_node_id = 0;
 		for c in word.chars() {
 			if c < 'A' || c > 'z' {
 				continue;
 			};
-			current_node_id = match self.arena.get(current_node_id).children.get(&c) {
+			current_node_id = match self.get(current_node_id).children.get(&c) {
 				Some(&id) => id,
 				None => return false,
 			};
@@ -201,16 +205,6 @@ impl Dictionary {
 		}
 		list
 	}
-}
-
-struct Arena {
-	nodes: Vec<Node>,
-}
-
-impl Arena {
-	pub fn new() -> Arena {
-		Self { nodes: Vec::new() }
-	}
 
 	pub fn new_node(&mut self, data: char) -> usize {
 		// Get the next free index
@@ -234,6 +228,7 @@ impl Arena {
 	pub fn get(&self, id: usize) -> &Node {
 		self.nodes.get(id).unwrap()
 	}
+
 }
 
 pub struct Node {

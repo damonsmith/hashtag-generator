@@ -25,7 +25,7 @@ fn main() {
 
 	let dict = dictionary::Dictionary::new(dict_file);
 	println!("ready, word count: {}, type exit to exit", dict.word_count);
-
+	println!("contains ar: {}", dict.contains("ar"));
 	let stdin = io::stdin();
 	for line in stdin.lock().lines() {
 		let hash_line = line.unwrap();
