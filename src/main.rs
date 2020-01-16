@@ -1,7 +1,12 @@
 mod dictionary;
 use std::env;
-use std::io;
-use std::io::prelude::*;
+
+extern crate serde_json;
+use serde_json::json;
+
+extern crate iron;
+use iron::prelude::*;
+use iron::status;
 
 fn main() {
 	let dict_file;
@@ -23,29 +28,27 @@ fn main() {
 	}
 
 	let dict = dictionary::Dictionary::new(dict_file);
-	println!("ready, word count: {}, type exit to exit", dict.word_count);
-	
-	let stdin = io::stdin();
-	for line in stdin.lock().lines() {
-		let hash_line = line.unwrap();
-		if hash_line == "exit" {
-			break;
-		}
-		println!("*Permutations:");
+
+	Iron::new(move |req: &mut Request| {
 		let mut sentences: Vec<String> = Vec::new();
-		dict.get_words_in_string(hash_line.as_str(), 0, String::new(), &mut sentences);
-		sentences.iter().for_each(|sentence| {
-			println!("{}", sentence);
+		let suggested = match req.url.query() {
+			Some(query) => {
+				dict.get_words_in_string(query, 0, String::new(), &mut sentences);
+				dict.get_overlapping_words(query, 6)
+					.iter()
+					.rev()
+					.collect()
+			},
+			None => return Ok(Response::with(status::BadRequest)),
+		};
+
+		let resp = json!({
+			"sentences": sentences,
+			"suggested": suggested,
 		});
-		println!("*Suggested next words:");
-		dict.get_overlapping_words(hash_line.as_str(), 6)
-			.iter()
-			.rev()
-			.enumerate()
-			.for_each(|(i, word)| {
-				if i < 10 {
-					println!("{}", word);
-				}
-			});
-	}
+
+		Ok(Response::with((status::Ok, resp.to_string())))
+	})
+	.http("localhost:3000")
+	.unwrap();
 }
