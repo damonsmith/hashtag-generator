@@ -186,8 +186,7 @@ impl Dictionary {
 		self.get(current_node_id).is_word_ending
 	}
 
-	pub fn get_overlapping_words(&self, sentence: &str, max_overlap: usize) -> Vec<String> {
-		let mut list: Vec<String> = Vec::new();
+	pub fn get_overlapping_words(&self, sentence: &str, max_overlap: usize, list: &mut Vec<String>) {
 
 		for l in 1..cmp::min(max_overlap, sentence.len()) {
 			let prefix: String = sentence.chars().skip(sentence.len() - l).take(l).collect();
@@ -201,7 +200,6 @@ impl Dictionary {
 					}
 				})
 		}
-		list
 	}
 
 	pub fn new_node(&mut self, data: char) -> usize {

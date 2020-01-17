@@ -30,24 +30,22 @@ fn main() {
 	let dict = dictionary::Dictionary::new(dict_file);
 
 	Iron::new(move |req: &mut Request| {
-		let mut sentences: Vec<String> = Vec::new();
-		let suggested = match req.url.query() {
+		match req.url.query() {
 			Some(query) => {
+				let mut sentences: Vec<String> = Vec::new();
 				dict.get_words_in_string(query, 0, String::new(), &mut sentences);
-				dict.get_overlapping_words(query, 6)
-					.iter()
-					.rev()
-					.collect()
+				let mut overlaps: Vec<String> = Vec::new();
+				dict.get_overlapping_words(query, 6, &mut overlaps);
+				let suggested: Vec<&String> = overlaps.iter().take(10).rev().collect();
+
+				let resp = json!({
+					"sentences": sentences,
+					"suggested": suggested,
+				});
+				Ok(Response::with((status::Ok, resp.to_string())))	
 			},
-			None => return Ok(Response::with(status::BadRequest)),
-		};
-
-		let resp = json!({
-			"sentences": sentences,
-			"suggested": suggested,
-		});
-
-		Ok(Response::with((status::Ok, resp.to_string())))
+			None => Ok(Response::with(status::BadRequest)),
+		}
 	})
 	.http("localhost:3000")
 	.unwrap();
