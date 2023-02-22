@@ -1,5 +1,6 @@
 mod dictionary;
 use std::env;
+use substring::Substring;
 
 extern crate serde_json;
 use serde_json::json;
@@ -32,8 +33,12 @@ fn main() {
 	Iron::new(move |req: &mut Request| {
 		match req.url.query() {
 			Some(query) => {
+				let trimmed_query = match query.strip_prefix("q=") {
+					Some(s) => s,
+					None => "",
+				};
 				let mut sentences: Vec<String> = Vec::new();
-				dict.get_words_in_string(query, 0, String::new(), &mut sentences);
+				dict.get_words_in_string(trimmed_query, 0, String::new(), &mut sentences);
 				let mut overlaps: Vec<String> = Vec::new();
 				dict.get_overlapping_words(query, 6, &mut overlaps);
 				let suggested: Vec<&String> = overlaps.iter().take(10).rev().collect();

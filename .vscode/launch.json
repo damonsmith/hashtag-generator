@@ -8,17 +8,7 @@
 			"type": "lldb",
 			"request": "launch",
 			"name": "Debug executable 'ambiguous_hashtag_generator'",
-			"cargo": {
-				"args": [
-					"build",
-					"--bin=ambiguous_hashtag_generator",
-					"--package=ambiguous_hashtag_generator"
-				],
-				"filter": {
-					"name": "ambiguous_hashtag_generator",
-					"kind": "bin"
-				}
-			},
+			"program": "${workspaceFolder}/target/debug/ambiguous_hashtag_generator",
 			"args": [],
 			"cwd": "${workspaceFolder}"
 		},
